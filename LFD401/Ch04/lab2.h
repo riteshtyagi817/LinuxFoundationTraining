@@ -1,5 +1,5 @@
-#ifndef LAB2_H
-#define LAB2_H
+#ifndef _LAB2_H
+#define _LAB2_H
 
 #include<stdio.h>
 #include<stdlib.h>
