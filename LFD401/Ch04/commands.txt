@@ -1,0 +1,13 @@
+1. To see the preload defines we can use the below command
+-> touch foo.h;gcc -E -dM foo.h;rm foo.h
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+2. To see the default include paths 
+-> gcc -v -E empty.c
+++++++++++++++++++++++++++++++++++++++++++++++++
+3. -O2 -Wall -pedantic -- this is a good option for compilation
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+4. gcc -O2 -Wall -o lab1 lab1.c
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+5. gcc -O2 -Wall -o lab2 lab2_main.c lab2_other1.c
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+6. gcc -O2 -Wall -I. -o lab2 lab2_main.c lab2_other1.c

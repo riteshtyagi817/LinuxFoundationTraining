@@ -1,1 +1,2 @@
 1. -W switch usage in compiling stages?
+2. Eclipse setup is mandatory? -- currently it is pending from my side.
