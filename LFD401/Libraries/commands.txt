@@ -1,0 +1,22 @@
+=========Static Libraries=================================================
+1. ar rv libtest.a *.o -- first command to create the lib
+2. (ranlib libtest.a) or (ar -s libtest.a) -- to generate and store the index for the contents
+3. nm -s libtest.a -- used to list symbols from object files or libraries
+=========Shared Libraries=================================================
+1. libtest.so.1.0 -- actual shared library( form - libc.so.N , N - major version number)
+2. libtest.so.1  -- name included in the soname field of the lib, used by the executable at run time to find the latest
+			revision of the v.1 test library.
+3. libtest.so -- used by gcc to resolve symbol names in the library at link time when the executable is created.
+4. gcc -fPIC -c test1.c -- do similar for all other .c files, (PIC - position independent code)  
+5. gcc -shared -Wl, -soname=libtest.so.1 *.o -o libtest.so.1.0 -lc (complete command) 
+	where -Wl -- tells gcc to pass the option to the linker, -lc tells the linker that libc is also needed which is generally
+	the case.
+6. linker(ld) is doing the work of step 5, we can write the above command in a below way as well.
+   ld -shared -soname=libtest.so.1 *.o -o libtest.so.1.0 -lc 
+7. comes the last step as below.
+   ln -s libtest.so.1.0 libtest.so
+   ln -s libtest.so.1.0 libtest.so.1
+8. linker will choose the shared vesion by default if both shared and static libraries exist, however we can override this by 
+   giving -static option to the linker, in this case all the libs including libc will be linked statically and size of executable
+   will be huge.
+
