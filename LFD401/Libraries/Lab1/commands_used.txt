@@ -1,0 +1,13 @@
+gcc -c *.c
+ar rv libfunc.a lab_func.o
+ar -s libfunc.a
+nm -s libfunc.a
+gcc -O2 -Wall -o lab_hello_main lab_hello_main.o -L. -lfunc
+gcc -O2 -Wall -o lab_hello_main lab_hello_main.o  -L. -lfunc
+
+export LD_LIBRARY_PATH=./
+gcc -O2 -Wall -o lab_hello_main lab_hello_main.o   -lfunc
+sudo cp libfunc.so.1.0 /usr/local/lib
+sudo ln -s libfunc.so.1.0 libfunc.so
+sudo ln -s libfunc.so.1.0 libfunc.so.1
+sudo ldconfig

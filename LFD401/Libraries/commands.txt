@@ -16,7 +16,7 @@
 *************************************************************************************************************************
 4. gcc -fPIC -c test1.c -- do similar for all other .c files, (PIC - position independent code)  
 *************************************************************************************************************************
-5. gcc -shared -Wl, -soname=libtest.so.1 *.o -o libtest.so.1.0 -lc (complete command) 
+5. gcc -shared -Wl,-soname=libtest.so.1 *.o -o libtest.so.1.0 -lc (complete command) 
 	where -Wl -- tells gcc to pass the option to the linker, -lc tells the linker that libc is also needed which is generally
 	the case.
 **************************************************************************************************************************
@@ -59,7 +59,15 @@
 ***********************************************************************************************************************************
 8. Try LD_DEBUG=all anycommand(mv,ls) for demo, also it might be possible that it doesn't show the paths configured by user(env).
 
-
+9. while working with shared libs, basically during link time either you copy the shared .so at standard paths in advance 
+   else use -L/path but make sure if you use the later option, export this path using LD_LIBRARY_PATH variable else it won't find teh lib during execution.
+10. Also if you copy the .so into /usr/local/lib, make sure you create both the symbolic links and run ldconfig to update the cache
+11. if you remove sym link named .so , it will give error during linking time, if you remove .so.1 it will give error during 
+  run time, also sometimes running ldconfig create .so.1 sym link if removed by mistake.
 ==============================================Dynamic Linker Loader==============================================================
-1.  
-
+1. dlopen, dlsym, dlclose, dlerror are useful functions.
+2. RTLD_LAZY -> resolution of symbols when needed, RTLD_NOW -- immediate resolution, RTLD_GLOBAL - symbols available to all 
+   subsequent loaded libraries.
+3.  constructor function is executed before dlopen returns and destructor is executed before dlclose returns if loading is run
+    time.
+4. constructor function is executed before main(void) and destructor is called after exit or completion of main(void) if loading is   done during before the start of the program. 
