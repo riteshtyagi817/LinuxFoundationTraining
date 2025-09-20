@@ -1,22 +1,65 @@
 =========Static Libraries=================================================
 1. ar rv libtest.a *.o -- first command to create the lib
+************************************************************************************************
 2. (ranlib libtest.a) or (ar -s libtest.a) -- to generate and store the index for the contents
+************************************************************************************************
 3. nm -s libtest.a -- used to list symbols from object files or libraries
+************************************************************************************************
+
 =========Shared Libraries=================================================
 1. libtest.so.1.0 -- actual shared library( form - libc.so.N , N - major version number)
+*************************************************************************************************************************
 2. libtest.so.1  -- name included in the soname field of the lib, used by the executable at run time to find the latest
 			revision of the v.1 test library.
+*************************************************************************************************************************
 3. libtest.so -- used by gcc to resolve symbol names in the library at link time when the executable is created.
+*************************************************************************************************************************
 4. gcc -fPIC -c test1.c -- do similar for all other .c files, (PIC - position independent code)  
+*************************************************************************************************************************
 5. gcc -shared -Wl, -soname=libtest.so.1 *.o -o libtest.so.1.0 -lc (complete command) 
 	where -Wl -- tells gcc to pass the option to the linker, -lc tells the linker that libc is also needed which is generally
 	the case.
+**************************************************************************************************************************
 6. linker(ld) is doing the work of step 5, we can write the above command in a below way as well.
    ld -shared -soname=libtest.so.1 *.o -o libtest.so.1.0 -lc 
+***************************************************************************************************************************
 7. comes the last step as below.
    ln -s libtest.so.1.0 libtest.so
    ln -s libtest.so.1.0 libtest.so.1
+******************************************************************************************************************************
 8. linker will choose the shared vesion by default if both shared and static libraries exist, however we can override this by 
    giving -static option to the linker, in this case all the libs including libc will be linked statically and size of executable
    will be huge.
+******************************************************************************************************************************
+9. ldd can be used to find out what shared libraries an executable needed , it shows soname of the library and what file it is 
+   actually pointing.
+*******************************************************************************************************************************
+10. ldconfig(run as root) is the command we generally run at boot time , used to create cache and links of most recent shared libraries, see man page for details, also it uses the file /etc/ld.so.conf which lists the dirs to be used for shared libs.
+*******************************************************************************************************************************
+11. Besides searching the database built by ldconfig, linker will first search any dirs specified in LD_LIBRARY_PATH and we can 
+    edit this same like PATH variable.
+
+
+====================================Linking to Libraries=============================================================
+1. gcc -o test test.c -L/path/lib -ltest --> this will link to /path/lib/libtest.so if it exists else /path/lib/libtest.a
+****************************************************************************************************************************
+2. if both shared and static libs are present, linker prefers shared lib unless we use -static at compile line.
+*****************************************************************************************************************************
+3. Please take care of the given order while using linking(-ltest)  as loader makes only one pass through the libs requested and be   tter not to have circular lib dependencies.
+*********************************************************************************************************************************
+4. gcc --print-search-dirs --> to see what is being searched, user specified paths comes before the default so you can use this ana   logy while editing env path variables as well.
+ **********************************************************************************************************************************
+5. strip test where test can be an executable, object file or lib archive, can be used to reduce file size and save disk space.
+   symbol table is discarded, generally we do this on production versions(Don't use strip on linux kernel or modules as they need 
+   symbol info).
+***********************************************************************************************************************************
+6. LD_DEBUG=help anycommand(mv for example)--> it is very helpful to obtain useful debugging information.
+*********************************************************************************************************************
+7. Above can also show how symbols are resolved during execution,will help finding things like linking to the wrong version of lib.
+***********************************************************************************************************************************
+8. Try LD_DEBUG=all anycommand(mv,ls) for demo, also it might be possible that it doesn't show the paths configured by user(env).
+
+
+==============================================Dynamic Linker Loader==============================================================
+1.  
 
