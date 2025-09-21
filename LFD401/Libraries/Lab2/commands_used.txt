@@ -1,0 +1,3 @@
+gcc -O2 -Wall -fPIC -shared -o libhello.so lab2_hello.c
+gcc -O2 -Wall -fPIC -shared -o libhello_dl.so lab2_hello.c
+gcc -O2 -Wall -o lab2_hello lab2_main.c -ldl
