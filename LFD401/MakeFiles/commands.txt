@@ -1,0 +1,15 @@
+1. make looks for makefile, if fails it looks for Makefile, use -f to override, however GNU version gives highest priority to
+   file named GNUMakefile.
+2. action linest must start with a TAB(ctrl-i in vim).
+3. we can use make without a Makefile because of built-in implicit rules.
+    make main sub.o --> will translate to cc -o main main.c, cc -c sub.c
+4. automake and autoconf utilities cna be found to generate Makefile across a wide variety of platforms and compilers.
+5. You use the above utilities everytime you run ./configure after downloading the source code.
+6. make can be recursive(call itself) and be invoked in subdirectories.
+7. output files can be placed in other dirs.
+8. Macros and Environment variables can be overridden on the command line.
+9. More than one Makefile can be used , it can be selected based on command line specifications and environment variables.
+10. string variables can be set by using = , and white space does not matter, we can use these variables by $()
+11. some flags like $(CC) and $(CFLAGS) are predefined but their values can be replaced in the Makfile or given on the make command line, bydefault precdence --> command line, then assignment in the makefile and then assignment in the shell environment.
+ Ex: export CFLAGS='-Wall' or make test CFLAGS='-pedantic', second one will be the effective one.
+12. info make can be useful for more details   	

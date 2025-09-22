@@ -1,0 +1,2 @@
+MYOBJS = a.o b.o c.o
+	$(CC) -o  test $(MYOBJS)

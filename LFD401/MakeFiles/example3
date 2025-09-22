@@ -1,0 +1,14 @@
+OBJS = main.o sub1.o sub2.o
+INCS = -I. -I/include
+DEFS = -Ddef1 -Udef2 -DHaveLibs
+CPPFLAGS = $(INCS) $(DEFS)
+CFLAGS = -O -g -Wall
+LOADLIBS = -L $(HOME)/mylib
+LDLIBS = -ltest
+TARGET = test
+
+$(TARGET): $(OBJS)
+	$(CC) $(DEFS) $(CFLAGS) $(CPPFLAGS) -o $(TARGET) $(OBJS) (LOADLIBS) $(LDLIBS)
+main.o: main.c defs.h
+sub1.o: sub1.c sub1.h
+sub2.o: sub2.c sub2.h

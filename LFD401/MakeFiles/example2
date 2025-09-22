@@ -1,0 +1,8 @@
+test: main.o sub1.o sub2.o
+	gcc -O -o test main.o sub1.o sub2.o
+main.o: main.c defs.h
+	gcc -O -c -I. main.c
+sub1.o: sub1.c sub1.h
+	gcc -O -c -I. sub1.c
+sub2.o: sub2.c sub2.h
+	gcc -O -c -I. sub2.c
