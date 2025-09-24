@@ -12,4 +12,10 @@
 10. string variables can be set by using = , and white space does not matter, we can use these variables by $()
 11. some flags like $(CC) and $(CFLAGS) are predefined but their values can be replaced in the Makfile or given on the make command line, bydefault precdence --> command line, then assignment in the makefile and then assignment in the shell environment.
  Ex: export CFLAGS='-Wall' or make test CFLAGS='-pedantic', second one will be the effective one.
-12. info make can be useful for more details   	
+12. info make can be useful for more details.
+13. .PHONY target can be used to indicate that a target should not be interpreted as a file name.eg,make install will malfunction if there happens to be a file named install.
+14. each action line run under its own shell, thus cd dir1;ls is not equal to   cd dir1
+										ls
+15. :=  --> simple assignment, while = --> functions recursively, more powerful but slower and can lead to infinite loop.
+16. by setting env variables alone, you can use make without a Makefile.
+17. make -p -f /dev/null will give the list of all the implicit rules and predefined variables.	

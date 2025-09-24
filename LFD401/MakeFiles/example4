@@ -1,0 +1,10 @@
+CFLAGS:= -O $(CFLAGS)
+CFLAGS+= -O
+CFLAGS?= -O2 -Wall
+all: dir1 dir2
+.PHONY: dir1 dir2
+dir1:
+	cd dir1;make
+dir2:
+	make -C dir2
+
