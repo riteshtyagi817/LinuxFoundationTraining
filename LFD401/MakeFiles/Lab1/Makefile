@@ -2,9 +2,9 @@ CC := gcc
 CLFAGS := -O2 -Wall 
 DEBUG = -g
 LFLAGS := -o 
-LOADLIBS := -L$(pwd)
+LOADLIBS := -L$(PWD)
 LDLIBS := -lhello
-INCLUDE := -I$(pwd)
+INCLUDE := -I$(PWD)
 
 lab_hello: lab_hello_main.o libhello.a
 	$(CC) $(LFLAGS) lab_hello lab_hello_main.o $(LOADLIBS) $(LDLIBS)

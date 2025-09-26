@@ -1,0 +1,34 @@
+CFLAGS = -O2 -Wall
+INCLUDE = -I$(PWD)
+LOADLIBS := -L$(PWD)
+LDLIBS := -lhello
+DEBUG = -g
+SPATH := /usr/local/lib/
+SYSTEMPATH = /usr/lib/
+
+#targets
+all: lab_hello_static lab_hello_shared
+
+libhello.a: lab_func.o
+	ar rv libhello.a lab_func.o
+	ar -s libhello.a
+
+lab_func.o: lab_header.h
+
+lab_hello_static: libhello.a lab_hello_main.c lab_header.h
+	$(CC) $(DEBUG) $(CFLAGS) $(INCLUDE) -static -o lab_hello_static \
+		lab_hello_main.c $(LOADLIBS) $(LDLIBS)
+
+lab_hello_shared: libhello.so.1.0 lab_hello_main.c lab_header.h
+	$(CC) $(DEBUG) $(CFLAGS) $(INCLUDE) -o lab_hello_shared \
+		lab_hello_main.c   $(LDLIBS)
+
+libhello.so.1.0: lab_func.c lab_header.h
+	$(CC) $(DEBUG) $(CLFLAGS) $(INCLUDE) -shared -fPIC -Wl,-soname=libhello.so.1 \
+		-o libhello.so.1.0 lab_func.c	
+	sudo cp libhello.so.1.0 $(SYSTEMPATH)
+	sudo rm -f $(SYSTEMPATH)libhello.so $(SYSTEMPATH)/libhello.so.1
+	sudo ln -s $(SYSTEMPATH)libhello.so.1.0 $(SYSTEMPATH)libhello.so
+	sudo ln -s $(SYSTEMPATH)libhello.so.1.0 $(SYSTEMPATH)libhello.so.1
+clean:
+	rm -f *.o *.a *.so* lab_hello_static lab_hello_shared
