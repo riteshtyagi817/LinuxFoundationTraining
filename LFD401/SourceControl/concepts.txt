@@ -1,0 +1,6 @@
+1. cvs repository can be on any remote machine, we can specify its location by using two methods:
+cvs -d /home/ritesh/mycvs init
+export CVSROOT=/home/ritesh ; cvs init
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+2. svn does revision numbering in a per-commit basis.
+

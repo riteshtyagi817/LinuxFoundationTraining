@@ -1,0 +1,8 @@
+1. mkdir my_project
+2. cd my_project
+3. touch test{1..7}.txt
+4. svn import ./svn_try/my_project file:///home/lenovo/my_repos -m "Original import"
+5. svn checkout file:///home/lenovo/my_repos/ my_project
+6. svn diff
+7. svn commit -m "I made some changes"
+8. svn update

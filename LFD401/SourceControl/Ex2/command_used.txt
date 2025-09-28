@@ -1,0 +1,18 @@
+1. which git
+2. sudo apt install git*
+3. mkdir git-test
+4. cd git-test/
+5. git init
+6. ls -l .git
+7. echo some junk > somejunkfile
+8. cat somejunkfile
+9. git add somejunkfile
+10. git status
+11. echo another line >> somejunkfile
+12. git commit -m "My initial commit" --author="A Genius < a_genius@linux.com>"
+13. echo $EDITOR 
+14. echo $GIT_EDITOR
+15. git config user.name "Another Genius" --> only for specific repo
+16. git config user.email "b_genius@linux.com" --> only for specific repo
+17. git log
+18. 
