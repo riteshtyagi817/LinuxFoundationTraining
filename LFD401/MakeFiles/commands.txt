@@ -1,26 +1,48 @@
 1. make looks for makefile, if fails it looks for Makefile, use -f to override, however GNU version gives highest priority to
    file named GNUMakefile.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 2. action linest must start with a TAB(ctrl-i in vim).
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 3. we can use make without a Makefile because of built-in implicit rules.
     make main sub.o --> will translate to cc -o main main.c, cc -c sub.c
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 4. automake and autoconf utilities cna be found to generate Makefile across a wide variety of platforms and compilers.
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 5. You use the above utilities everytime you run ./configure after downloading the source code.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 6. make can be recursive(call itself) and be invoked in subdirectories.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 7. output files can be placed in other dirs.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 8. Macros and Environment variables can be overridden on the command line.
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 9. More than one Makefile can be used , it can be selected based on command line specifications and environment variables.
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 10. string variables can be set by using = , and white space does not matter, we can use these variables by $()
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 11. some flags like $(CC) and $(CFLAGS) are predefined but their values can be replaced in the Makfile or given on the make command line, bydefault precdence --> command line, then assignment in the makefile and then assignment in the shell environment.
  Ex: export CFLAGS='-Wall' or make test CFLAGS='-pedantic', second one will be the effective one.
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 12. info make can be useful for more details.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 13. .PHONY target can be used to indicate that a target should not be interpreted as a file name.eg,make install will malfunction if there happens to be a file named install.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 14. each action line run under its own shell, thus cd dir1;ls is not equal to   cd dir1
 										ls
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 15. :=  --> simple assignment, while = --> functions recursively, more powerful but slower and can lead to infinite loop.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 16. by setting env variables alone, you can use make without a Makefile.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 17. make -p -f /dev/null will give the list of all the implicit rules and predefined variables.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 18. Linker works forward, means it checks the dependencies of file after it in command line for example when we link main.c against libstatic.a , we should give -o main main.c -Lpath -lstatic --> something like this to avoid issues.
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 19. Even though we have copied the shared .so to /usr/local/lib and create symlinks still we need to provide the local path (-Lpath), reason being -- /usr/local/lib/ is not the standard path, /usr/lib will work without proving any local path, better to copy to /usr/lib, else current dir, using -L , export variable and -loption, LD_DEBUG=all ./executable will help.
-20. if even after exporting ld is not able to load the shared lib,might be something wrong in command during symbolic link creation
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+20. if even after exporting ld is not able to load the shared lib,might be something wrong in command during symbolic link creation,sometimes ln -s (src) (target) , src naming might be wrong(.so.1.o instead of .so.1.0)
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 21. LD_DEBUG=all ./executable is very helpful.
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 22. Also ldd ./executable shows the runtime dependency of shared lib.	
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
