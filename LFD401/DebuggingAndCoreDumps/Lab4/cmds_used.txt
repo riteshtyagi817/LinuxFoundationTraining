@@ -1,0 +1,3 @@
+ddd crash_pgm
+on Gui-->File --> open core dump
+

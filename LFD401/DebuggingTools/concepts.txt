@@ -1,0 +1,6 @@
+1. int gettimeofday(struct timeval *tv, struct timezone *tz); --> the time returned by this function is measured in seconds since
+   the Epoch, midnight on Jan 1 1970, if you just want to know the time, you can pass the null for second argument.
+2. one handy macro --> #define GET_ELAPSED_TIME(tv1,tv2) \
+        ((double)(tv2.tv_sec - tv1.tv_sec) + 0.000001*(tv2.tv_usec - tv1.tv_usec))
+3. to set up and use an interval timer, the system calls setitimer() and alarm() are also available.
+

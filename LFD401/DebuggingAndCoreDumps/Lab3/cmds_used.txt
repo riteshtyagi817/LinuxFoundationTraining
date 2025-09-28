@@ -1,0 +1,3 @@
+cat &
+sudo gcore 12475
+gdb /bin/cat core.12475

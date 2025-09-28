@@ -60,4 +60,8 @@ Means core dumps will be saved in /tmp/core/ with filenames that include:
 %p → process ID
 
 %t → timestamp
-++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+18. you can get a core dump of any process running on the system as long as you have sufficient privilege.
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+19. ddd crash_pgm --> very useful graphical interface if you want to see the assembly code as well along with basic gdb debugging.
+  
