@@ -21,4 +21,6 @@
 17. make -p -f /dev/null will give the list of all the implicit rules and predefined variables.
 18. Linker works forward, means it checks the dependencies of file after it in command line for example when we link main.c against libstatic.a , we should give -o main main.c -Lpath -lstatic --> something like this to avoid issues.
 19. Even though we have copied the shared .so to /usr/local/lib and create symlinks still we need to provide the local path (-Lpath), reason being -- /usr/local/lib/ is not the standard path, /usr/lib will work without proving any local path, better to copy to /usr/lib, else current dir, using -L , export variable and -loption, LD_DEBUG=all ./executable will help.
-	
+20. if even after exporting ld is not able to load the shared lib,might be something wrong in command during symbolic link creation
+21. LD_DEBUG=all ./executable is very helpful.
+22. Also ldd ./executable shows the runtime dependency of shared lib.	
