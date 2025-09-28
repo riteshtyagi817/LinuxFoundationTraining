@@ -1,0 +1,6 @@
+ulimit -c
+ulimit -c unlimited
+gcc -g -o crashpgm crashpgm.c
+mkdir /tmp/core
+echo '/tmp/core/core-%e-%s-%u-%g-%p-%t' | sudo tee /proc/sys/kernel/core_pattern
+sudo gdb /home/lenovo/LFT_Work/LinuxFoundationTraining/LFD401/DebuggingAndCoreDumps/Lab1/crashpgm core-crashpgm-11-1000-1000-12130-1759079465

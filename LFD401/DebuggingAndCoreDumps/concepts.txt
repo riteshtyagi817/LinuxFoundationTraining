@@ -1,0 +1,63 @@
+1. gdb is the gnu debugger , upon launch after processing all command line arguments and options , it loads commands from the 
+file .gdbinit in the current working directory (if it exists).
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+2. programs have to be compiled with -g option for symbol and number information to be available to gdb.
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+3. However still you can get some info if not compiled with -g symbol , eg: where command often tells you where
+  the program bombed.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+4. large IDE's such as eclipse are often used as a graphical debugging interface.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+5. no matter what the graphical interface you use, the debugger remains gdb.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+6. if fork() is called default behavior of gdb is to continue the parent process but can be controlled using following commands:
+set follow-fork-mode child
+set follow-fork-mode parent
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+7. A core dump file contains a complete image of process's memory, usually at its termination.
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+8. man 7 signal can be used to see the list of signals which can generate core file.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+9. In order to produce the core dump file , the process has to recieve one such signal and can be done in atleast three ways.
+--> signal can be generated due to an error condition such as buffer overrun, segmentation fault or floating point exception.
+--> kill -SIGBART pid, kill -6 pid(kill -l can be used to see the list of signals)
+--> sudo gcore pid ( gcore does not terminate the process).
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+10. ulimit -c can be used to see the size of core dump file size limit, and ulimit -c unlimited can be used to change this.
+     help ulimit to see the options, however gcore does not depend on this, automatic core generation depends on this.
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+11. to make the changes permanent either put this into /etc/security/limits.conf or put ulimit command in .bashrc file in your hom
+e dir.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+12. Name of the core dump file depends on how the system is configured. By default on most Linux distributions the file will be
+   produced in your current directory, with the name core.pid.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+13. However linux distribution can be configured to produce core dump files with another pattern.
+cat /proc/sys/kernel/core_pattern  --> can be used to see the pattern.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+14. To change the pattern:
+	sysctl -w kernel.core_pattern=/tmp/core/core-%e-%s-%u-%g-%p-%t can be used to persistent across reboots.
+		--> for above to work core dir should be created in advance, else core won't be generated,also take care of
+                    permissions as well.
+	echo '/tmp/core.%e.%p.%t' | sudo tee /proc/sys/kernel/core_pattern -- to make it temporary until reboot.
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+15. gdb executable core.7343 --> to examine a core dump file.
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+16. ddd -- graphical front end to gdb , we can use ddd or ddd my_program
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+17. /tmp/core/core-%e-%s-%u-%g-%p-%t
+
+Means core dumps will be saved in /tmp/core/ with filenames that include:
+
+%e → executable name
+
+%s → signal number that caused the crash
+
+%u → user ID
+
+%g → group ID
+
+%p → process ID
+
+%t → timestamp
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 

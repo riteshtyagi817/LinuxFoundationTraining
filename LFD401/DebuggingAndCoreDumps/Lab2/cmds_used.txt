@@ -1,0 +1,3 @@
+gcc -g -o victim victim.c
+./victim &
+kill -s SIGABRT 12391
