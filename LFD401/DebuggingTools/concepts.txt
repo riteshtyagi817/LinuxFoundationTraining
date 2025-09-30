@@ -1,6 +1,50 @@
 1. int gettimeofday(struct timeval *tv, struct timezone *tz); --> the time returned by this function is measured in seconds since
    the Epoch, midnight on Jan 1 1970, if you just want to know the time, you can pass the null for second argument.
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 2. one handy macro --> #define GET_ELAPSED_TIME(tv1,tv2) \
         ((double)(tv2.tv_sec - tv1.tv_sec) + 0.000001*(tv2.tv_usec - tv1.tv_usec))
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 3. to set up and use an interval timer, the system calls setitimer() and alarm() are also available.
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+4. perf is the native linux profiling tool available on all distributions.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+5. ftrace is the native linux kernel tracer, it provides a built-in tracing mechanism which, coupled with some user space tools
+ can make a tremendous amount of information available in near real time.
+---> applicaion interface is provided by trace-cmd and kernelshark provides an attractive graphical interface.
+--> trace.dat files generated on machine can be analyzed on another, even one of a totally different CPU architecture.
+--> several tracers are availble as the part of ftrace and provide slight different features.
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+6. gprof can be used for execution profiling, info will be gathered about the time spent in each function, the number of times
+  	everything is called etc, not a line by line information per se.
+   we can use gprof by compiling the code with -pg option, only compile those routines which we want to profile.
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+7. to use gprof, -pg during compilation and then gprof binary(eg: a.out), we can use -b to make it less verbose.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+8. Intel offers vtune, which requires use of windows computer to run the user interface together with the target linux system.
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+9. TAU provides complete performance analysis env for number of languages.
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+10. some of the main utilities on your linux distribution are as below:
+	
+	ps --> Info about processes.
+    
+	top --> Dynamic view of running tasks and system.
+    
+	vmstat --> Info about memory paging, I/O, swapping etc.
+    	vmstat --help or info vmstat can be useful.
+
+    	free --> memory statistics.
+
+	netstat --> network connections, routing and statistics etc.
+	
+	iostat --> Monitor I/O load.
+ 
+	iotop --> Monitor I/O load per process.
+	iotop --help or iotop -p pid 
+
+	mpstat --> processor related statistics.
+	mpstat --help or info mpstat can be useful
+        
+	sar --> collect, report, save system activity information.
+
 
