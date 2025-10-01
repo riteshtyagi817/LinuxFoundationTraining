@@ -47,4 +47,45 @@
         
 	sar --> collect, report, save system activity information.
 
+Note: All of the above utilities gain their info from reading entries in the /proc filesystem which is a pseudo filesystem,we can directly examine entries there without using special programs once we become familiar with the formats of the various entries.
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+11. valgrind is an integrated set of tools useful for profiling and debugging under Linux. the three main tools are memory error 
+	detection , cache profiling and heap profiling.
+	format to run is ---> valgrind --tool=toolname [option] exectable_name [arguments]
+	toolname can be --> lackey,memcheck, corecheck, helgrind, massif, callgrind, cachegrind or none.
+	Also compile the source code with -g flag.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+12. usage of valgrind with various tools inside it can slow down the program execution, also programs are instrumented and 
+	run under a simulated CPU, valgrind --help is helpful and info valgrind is useful to see the various options.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+13. Valgrind will debug and profile shared libaries as well along with our program and thus output can be noisy, it is possible to 	selectively suppress the output from shared libraries.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+14.  memcheck --> detects use of uninitialized memory, accessing memory past the end of malloc region, accessing memory which has 
+	already been freed.
+     Also detects inappropriate use of stack areas, memory leaks(allocated buffers which are never freed or re-used) and also can 
+    pinpoint other memory access related errors.
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+15. cachegrind --> profiles the use of cache, simulates  L1,L2, D1 cpu caches and logs the no of cache hits and misses, memory refe	rences and instructions for each line of our program, it can slow down our programs upto 100 times.
+	helper program callgrind is a wrapper which gives even more info, KDE application kcachegrind gives an advanced 
+	graphical interface.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+16. helgrind --> Thread debugger which looks for multi-threaded race conditions.
+		Identifies memory locations used by more than one thread without mutual exclusion primitives.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++17. massif --> heap profiler which produces a graph of heap usage over time.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+18. Address Sanitizer:
+	it is a powerful tool developed by Google to detect the number of memory-related bugs such as "use-after-free" errors,
+	memory leaks and out of range errors.
+	it replaces the addrcheck tool in valgrind which is no longer available.
+	it can be used by both gcc and clang compilers.
+	we can use it in a following way:
+		gcc -g -fsanitize=address -o test test.c
+		./test
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+19. while linux distro should have full compiler support for address sanitizer sometimes it may not have libasan package installed.
+	our program can fail to compile due to missing libasan package which can be easily installed with a command such as 
+	sudo apt install libasan5
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+	
+ 
 
