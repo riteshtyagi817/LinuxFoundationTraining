@@ -1,0 +1,12 @@
+gcc -g -o dbg dbgexample.c
+gdb dbg
+ddd dbg
+gcc -g -fsanitize=address -o dbg dbgexample.c
+gdb a.out
+b 16
+list 10
+run
+run 806
+n
+s
+quit

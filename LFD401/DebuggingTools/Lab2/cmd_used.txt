@@ -1,0 +1,6 @@
+gcc -g -o leak leak_example.c
+valgrind --help
+valgrind --tool=memcheck --leak-check=full --show-reachable=yes ./leak
+valgrind --help-debug
+gcc -g -fsanitize=address -o leak leak_example.c
+./leak

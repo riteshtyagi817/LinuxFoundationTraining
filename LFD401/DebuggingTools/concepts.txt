@@ -86,6 +86,10 @@ Note: All of the above utilities gain their info from reading entries in the /pr
 	our program can fail to compile due to missing libasan package which can be easily installed with a command such as 
 	sudo apt install libasan5
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+20. info gdb or man gdb is helpful also give command line args using run args after gdb a.out
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+21. using gdb we won't see errors while we try to set or access the array out of bound addresses but address sanitizer will show ev 	even if just one byte overrun. 
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 	
  
 
