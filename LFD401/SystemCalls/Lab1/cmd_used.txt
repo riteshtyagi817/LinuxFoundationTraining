@@ -1,0 +1,4 @@
+strace [options] command [arguments]
+strace ls -lRF / 2>&1 | less
+ps aux | grep ls
+ls -ltr /proc/5103/fd

@@ -1,0 +1,39 @@
+1. Programs may request actions, or services, from the linux kernel through a well defined set of system calls.
+	This is done because all interaction with hardware(including memory) requires kernel privileges. 
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+2. All arguments to system calls(as they are presented to the kernel , not as they appear to the application) are unsigned longs
+	which may be interpreted as the pointers, lib or application making the system call will take care of any casting required.
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+3. Usually , the max no of args to the system call as it is presented to the kernel is 6 including the system call no.
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+4. man syscalls is helpful, there are around 462 system calls for x86 Linux kernel.
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+5. Together with the routine number , the library passes any args to the kernel which then executes the call, when it is finished 
+ 	it returns an exit code to user-space.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+6. On pentium 4 and later processors, software interrupts generated with the int instruction are relatively slow, a new method of 
+	invoking system calls was introduced in the 2.6 kernel, which uses the syscenter and sysexit instructions instead.
+This is done by having a global read-only page mapped into the address space for each process(called vDSO), which contains the 
+	instructions for executing the system calls for the particular processor variant.Doing a system call just means setting up 
+	the appropriate registers and jumping to the new page and calling a routine vsyscall().
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+7. most system calls returns 0 on success and -1 on failure. using perror is helpful, exit(errno) is also useful in case of error.
+	actual error codes can be found at /usr/include/asm-generic/errno-base.h,also errno.h
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+8. strace is used to trace system calls and signals, each system call, its arguments and return value are printed.
+	man strace or info strace is helpful.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+9. one way to learn more about strace is to do some execution with strace like strace ls -ltr / 2>&1 | less  and ls is paused under less, we can examine the details under /proc file system by finding the pid using ps aux | grep less and then see /proc/pid/fd to 
+ see how the file descriptors are mapped the underlying files(or pipes) etc.
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+10. By default strace puts its output on stderror, but we can use -o option to redirect it to the file.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+11. int syscall(int call_no, ...); can be used to invoke any system call known to the system. call_no can be read from the list in
+	syscall.h, remaining variable no of args are the arguments to the actual system call.
+	this function is not needed to be used , it is there for library writers and we don't need in normal programs unless when
+	absolute necessary.
+	currently we can use this header file for our system call no -- /usr/include/x86_64-linux-gnu/bits/syscall.h
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+12.
+    
+  
