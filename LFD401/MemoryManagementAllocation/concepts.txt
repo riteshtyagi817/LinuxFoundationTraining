@@ -1,0 +1,105 @@
+1. Each process lives in its address space, which consists of a list of virtual memory areas, each one of which is a range of
+	contiguous virtual addresses.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+2. The addresses are virtual because they do not directly correspond to the physical addresses used by the hardware, the kernel
+	maintains the connection between these two types of addresses.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+3. The physical memory referred to by a given virtual address can change with time as memory is swapped in and out according
+	to the system needs.
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+4. The basic unit of memory is called a page whose size depends on the architecture. For many common arch a page is 4KB in length.
+	although it varies and some architectures can actually use more than one size. Access rights, permissions, swapping 
+	and sharing etc are done at the page level, we can obtain the page size using getpagesize(void) function and it is often
+	a good size to use for various buffers since it is page aligned.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+5. 32 bit addresss space can handle 4GB of memory, even though x86 platform uses PAE(physical address extension mechanism) to
+	enable 36 bit addresses and thus upto 64 GB of memory still processes are limited to use 4GB at a time.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+6. 32 bit Linux arch divides this 4GB of address space into a portion used by the kernel and portion used by the uses space.
+	usually lower 3GB to applications and upper 1 GB to kernel.
+	Thus without acrobatic maneuvers, Linux cannot give an application more than 3 GB of memory to use on 32 bit systems.
+	this does not mean the kernel can only use 1 GB of memory and apps can only use 3 GB in total, it simply means that
+	the kernel has to do more complicated maneuvers to use more than this (to use the so-called high memory) and that each
+	app is limited to 3GB.
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+7. On 64 bit systems there is no concept of high memory and all memory access is flat. There is no direct limit on how much 
+	memory an application or kernel can use.
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+8. Since memory prices continue to drop while 64-bit CPUs are now the norm, the extra work involved in making 32-bit platforms
+	work with large amounts of memory is simply not worth it.while there are still many 32 bit systems found in appliances 
+	running Embedded Linux, they usually do not have enough memory for the 32-bit compilcations to cause trouble.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+9. Variables can be allocated either statically(in main memory, persisting through the life of the program) or automatically 
+	( off the stack, persisting only through the life of the code block they are contained in).
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+10.  Both the above approaches are efficient and fast, but they require that the size of the allocated object must be known at
+	compile time. Furthermore, the long lifetime of static variables can be wasteful, while automatic variables can oveflow 
+	the stack because the size of the stack is not necessarily known in advance.
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+11. we can control the size of stack by using ulimit -s 1024 which would limit the stack to 1 MB or from within a program with:
+	struct rlimit r1 = {1024,1024};
+	setrlmit(RLIMIT_STACK,&r1);
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+12. man setrlmit is useful , normal users can only decrease the stack size which by default is 8 MB on most Linux systems.
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+13. The dynamic memory allocation is extremely useful in that objects of arbitrary size (limited only by the total memory
+	available in the system and even more) can be allocated and de-allocated when no longer necessary. the memory comes from
+	the heap, the size of which can be elasitically modified according to the needs.
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+14. When using dynamical allocation it is important to free memory when it is no longer needed to avoid the generation of 
+	memory leaks. However, many programs rely on program termination to take care of freeing.
+================================================================================================================================
+15. In functions like malloc, calloc or realloc , size represents no of bytes.
+===============================================================================================================================
+16. realloc() will permit resizing the allocatd buffer, if it can be done in place it will, but if necessary the new memory
+	will be allocated and the contents of the original buffer copied over.
+==============================================================================================================================
+17. old version of libc required explicit casting of the pointers returned by malloc() but now not needed and should not be used
+	as it directly return void *(c++ still requires but we don't need to use these functions in c++).
+=================================================================================================================================
+18. How memory allocation works depends explicity on both libc and on the OS kernel, in particular a strategy which is both 
+	non-urgent and optimistic is followed.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+19. By non-urgent one means that while a legal address may be given as a return value from malloc() , there may not actually be
+	physical memory yet associated with the address. Eg: not  all of the memory may be needed and referenced.
+	Thus, the kernel may tie physical memory to virtual memory addresses one page at a time(4 KB on x86) by using demand 
+	page faulting. it is also possible that the page may have swapped out needs to be swapped back in which also induces 
+	a normal page fault.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+20. By optimistic, one means that system is allowed to overcommit memory(like an airline booking a flight).This can lead to 
+	invocation of the dreaded OOM killer(Out of Memory), which tries to select candidates to throw overboard . this can be 
+	turned off by doing --> echo 2 > /proc/sys/vm/overcommit_memory
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+21. malloc implementation of libc permits a significant amount of tuning as well as the ability to gather info about ongoing
+	allocations.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+22. For small allocations malloc() uses the underlying brk() and sbrk() system calls, which reset and resize the data segment 
+	used by a process, for larger allocations, malloc() uses the mmap system call, which always provides the multiples of 
+	the page size(4 KB on x86).
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+23. mmap let apps access file regions using memory references rather than explicit file operations, and can be far more efficient.
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+24. competition between sbrk() and mmap() can be influenced through the use of int mallopt(int param, int value).
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++  
+25. malloc_stats can return the current allocation info, for force alignment of allocated memory, we can use posix_mealign to
+	allocate such aligned memory.
+	int posix_memalign(void **memptr, size_t alignment, size_t size);
+the allocated memory will be size bytes in length, address returned to *memptr wil be a multiple of alignment, the value of
+	alignment must be power of 2 and multple of the pointer size (sizeof(void *)).
+	don't use older functions like memalign() and valloc().
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+26. It is possible for a user process to lock some or all of its pages in memory so they cannot be swapped out, Normal users
+	can lock only 16 pages (values can be reconfigured using ulimit) while root users are less limited.
+	The locking of pages is not inherited through fork() or the execve() variations.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+27. There are two reasons to lock down pages, the first is to ensure bounded real time behavior; a process may have to wait 
+	an unpredictable amount of time for a page of memory to be demand-faulted in. the second is security: eg: a security
+	key contained in memory may wind up in swap file where it could potentially be compromised.
+	system calls are mlock, munlock, mlockall, munlockall etc.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+28. when using mlock(), the addr arg should be aligned with page boundaries, when using mlockall(), the flags arg will usually be
+	a combination of the two flags:
+	MCL_CURRENT - lock all pages currently mapped into the person's address space.
+	MCL_FUTURE - lock all future pages mapped into the address space.
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+29. Best option to consult man page in case of any doubt about any behavior of any system call. 
