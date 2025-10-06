@@ -1,0 +1,9 @@
+tail -f kern.log
+gcc -o oom oom.c
+./oom 10000000
+sudo swapoff -a
+sudo swapon -a
+gcc -o oom1 oom1.c
+sudo swapoff -a
+sudo swapon -a
+free -kh
