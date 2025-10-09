@@ -1,0 +1,50 @@
+1. some important interfaces (such as networks) are not accessed through the filesystem, although they can use file-like I/O 
+	through sockets.
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+2. A file is a symbolic reference to an Inode.
+ 	we can use ls -li to see the inode number as the first col.
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+3. ln sourcefile targetfile --> to create hard link.
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+4. ln -s sourcefile targetfile --> to create soft link. 
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+5. hard links have same inode number where softlink has unique inode number.
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+6. Device(special) files /dev/sda1 /dev/hdc /dev/ttyS0, etc are special files or device files representing hardware devices 
+	and pseudo devices. they are created using the mknod utility.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+7. Linux implements Virtual File System(VFS) like all modern OS's. for the most part, neither the specific filesystem or
+	actual physical media and hardware need be addressed by filesystem operations.Furthermore, network filesystems such as 
+	NFS can be handled transparently, it helps Linux to work with more filesystem varieties than any other OS.
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+8.  Most FS have full r/w access while a few have only read access and perhaps experimental write access.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+9. some FS types , especially non-unix based may require more manipulation in order to be represented in VFS.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+10. The native FS for linux are ext2 and its journaling descendants, ext3 and ext4.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+11. Inode --> Each file is represented by a structure called inode, containing file type, access rights , owners , timestamps, size and pointers to data blocks, addresses of data blocks are stored in inode. each inode is indexed by a number which is unique per file system.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+12. Blocks --> A file's contents are kept in a linked list of blocks, whose size can be set when the filesystem is formatted.
+	The block size cannot be bigger than a page of memory, 4KB on most architectures. For large filesystems , 4 KB is used 
+	used by default, and  for small filesystems 1 kB. This is different from the hardware sector size which is usually 512 bytes.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+13. Directories --> These are maintained in a hierarchical tree with files and subdirectories. A dir is actually a file containing
+	a list of inodes and file names.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+14. Links --> Several names can be associated with an inode.(the inode contains a counter of the links to an inode).
+	 This is called a hard link, and cannot be used for dirs.
+	Symbolic or soft links are files which contain a filename, can be used across filesystems and for directores, very useful.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+15. Device Special files --> special file, uses no space, is only an access point to a device driver, generally under /dev. Block
+	and character special files. Special files have both a major number(device type) and a minor number(unit). while a 
+	device node requires a small amount of disk space for the inode, it requires no data blocks.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+16. Reserved Space ---> Usually 5 percent of the blocks(usually 4 KB in size) are reserved for root,to help with screw-ups
+	where filesystem gets filled by a user.(This allocation can be changed with tune2fs utility, without reformatting the 
+	filesytem).
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+17. State --> A field in the super block indicates clean, Not clean or Erroneous, used to see if fsck should be run at boot.
+	
+ 
+   
