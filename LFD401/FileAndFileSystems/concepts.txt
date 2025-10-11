@@ -45,6 +45,29 @@
 	filesytem).
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 17. State --> A field in the super block indicates clean, Not clean or Erroneous, used to see if fsck should be run at boot.
-	
- 
-   
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+18. Physical Structure --> Details of the disk structure can be viewed with dumpe2fs utility.The structure looks like this:
+ Boot sector, block group 1, block group2 .....
+each block group will consist like super block, group descriptors, data block bitmap, inode bitmap, Inode Table(in blocks),
+	Data blocks(in blocks).
+     super block adn filesystem descriptors are redundant in multiple block groups which is great for safety.
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+19. mkfs.ext2 or mkfs.ext3 makes the filesystem. checking the filesystem is done with fsck.ext2 or fsck.ext3 while 
+	de-fragmentation is generally not necessary, we can use e4defrag to do so and fdisk is the partitioning program, need to
+     be used with care. 
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++	
+ 20. we can shrink or expand a partition with resize2fs , but be careful as it does not change the actual partition table.
+	see man page to do this in concert with fdisk. gparted is graphical utility that can take care of the complications.
+	many params can be tuned or reset after filesystem creation with the program tune2fs.
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+21. Journaling filesystems recover from system crashes or ungrateful shutdowns with little or no corruption and they do so
+	very rapidly.
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+22. In  a journaling filesystem, operations are grouped into transactions, a transaction must be completed without  error,
+atomically;otherwise the filesystem is not changed, a log file is maintained of transactions, when an error occurs, usually
+	only the last transaction needs to be examined, ext3 or ext4 can be used , ext4 is a bit advanced.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+23.  In ext4, large files are split into extents as large as possible instead of indirect block mapping. multiblock allocation
+	can allocate space all at once instead of one block at a time, delayed allocation can also increase performance.
+_____________________________________________________________________________________________________________________________
+24.

@@ -1,0 +1,23 @@
+1. The loopback filesystem driver can be used to mount a file to be used as a hard disk image. this can be very useful for mounting
+	CD or DVD images as filesystems as well as for simulating or learning about various types of filesystems.
+2. creating a file to use for the image and filled with zeros.
+
+dd if=/dev/zero of=/tmp/fsimage bs=1024 count=204800
+
+3. then create an ext3 filesystem on it with:
+	
+mkfs.ext3 /tmp/fsimage
+
+4. then mount it(as root) with
+sudo mkdir /tmp/mnt
+sudo mount -o loop /tmp/fsimage /tmp/mnt
+
+5. we can verify its mounting and check capacity with:
+	
+df /tmp/mnt
+df -T /tmp/mnt
+6. we can create files, read and write them and then unmount using 
+sudo umount /tmp/mnt and such files will be survived and then remount in any location.
+
+7. we can do this activity with other filesystem types if we have kernel support for them( cat /proc/filesystems) and appropriate
+	tool for formatting such as mkfs.ext4 or mkfs.vfat
