@@ -1,0 +1,73 @@
+1. Basic  UNIX I/O operations like open, close, read, write, lseek are unbuffered , while standard I/O are bufffered.
+   while using UNIX I/O files are referenced using file descriptors(non-negative integers) and not the FILE * stream type
+	used in standard I/O.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+2. STDIN_FILENO(0), STDOUT_FILENO(1), STDERR_FILENO(2) are connected by default and no  need of open and close operations.
+	better to use names rather than numbers.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+3. use man 2 open or similar for man page help, open returns a file descriptor for a file or a device referenced by pathname,
+	mode option is needed only when a new file is created, it returns -1 or error and errno is set.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+4. close() releases a file descriptor so it loses any association with any file and may be re-used. All file locks are released.
+	if unlink() has been used on the file and this is the last file descriptor currently in use that references,the file will 
+	be deleted.
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+5. Terminating processes implicitly call close() on all open file descriptors.
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+6.  unlink() actually removes a file.(sym links are removed but not their underlying files) if the file is currently in use.	
+	deletion is displayed until the last file descriptor referring to it is released. 
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 7. read gets count bytes from the file descriptor fd and places them into buf.
+	if it is non-negative, but less than count, it means fewer bytes are presently available due either to an end of file,
+	no more data present on read from a pipe or a terminal, or a interruption by a signal.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+8. lseek repositions the offset of fd to offset relative to whence parameter which have values like SEEK_SET,SEEK_CUR and SEEK_END.
+	use of lseek is restricted to regular files, it cannot be employed on streams like pipes, sockets or FIFO's.
+	on success, lseek() returns the resulting offset from the begining of the file.
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+9.  positional I/O functions are pread and pwrite
+	In addition to the usual I/O args these functions require one more, the offset from which the I/O should begin.they do
+	not advance the offset, unlike normal reads and writes. they are useful , for instance in multi-threaded programs where
+	the file position may not be well known since it is shared in all threads.
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+10. vector I/O functions are readv and writev( These functions perform a gather/scatter I/O operation on a chain of buffers in 
+	one system call , instead of series of system calls for each buffer, can lead to enhanced efficiency. an example would be
+	when reading from a device which has Direct Memory Access(DMA) capability and whose device driver takes advantage 
+	of scather-gather techniques.
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+11. standard I/O library is the part of ANSI C standard and allows for formatted I/O, here file is represented as an I/O stream.
+	These streams are pre-opened and pre-defined to correspond to the file descriptors used in UNIX I/O.
+	eg: stdin, stdout, stderr 
+	Basic functions used are fopen, fdopen, freopen, fileno, fclose, fseek, ftell, fprintf, printf, scanf, fscanf, fread,
+	fwrite,fflush, feof, ferror, clearerr.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+12. standard file I/O is buffered. the size of the buffer depends on the implementation of glibc and the file utilities.
+	on recent Linux systems  the buffer size is 512 bytes, on older systems it was equal to the page size (4 KB on x86).
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+13. we can mix unix and standard I/O functions, the function fdopen gives you a pointer to a file stream given an integer file
+	descriptor, while the function fileno() performs ther inverse operation.
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+14. Large File Support:
+	normally 32 bit systems cannot handle files greater than 2 GB in size(64-bit systems are not so limited).
+	Linux permits this through the use of LFS system(Large file support) which requirers coperation from the kernel.
+	In particular for each kind of filesystem and from libc. All major modern filesystems under use in Linux now support this.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+15. there is more than one way to support LFS.
+	a) if you compile your program with 
+		gcc -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE
+		all file access is 64 bit, we need to be careful with this as all the standard system calls are migrated to their
+		64-bit variants(open becomes open64), in addition type changes: eg: off_t becomes off64_t thus one had better
+		not use an int instead of off_t type anywhere.
+	b) if you compile your program with
+		gcc -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE
+		you can use LFS functions directly, like open64 on a file by file basis. this program requies no 
+		change in the program source.
+	c) we can open the files with the O_LARGEFILE flag on file by file basis. this approach is not preferred as it requires 
+		changes to the program source and is also less portable.
+	
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 15. while larger than 2 GB file offsets are allowed, the ssize_t data type returned by the I/O functions is still just a 
+	32 bit quantity. thus you cannot accomplish a humongous read or write just with one system call, but of course there
+	is no need to do so.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+16.
