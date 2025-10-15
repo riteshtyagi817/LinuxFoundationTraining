@@ -1,0 +1,3 @@
+I am trying to see the usage of Unix I/O system calls to read the 
+data from this file in the hex form through a c program and then will compare this
+using the hexdump utility.
