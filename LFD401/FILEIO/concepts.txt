@@ -70,4 +70,4 @@
 	32 bit quantity. thus you cannot accomplish a humongous read or write just with one system call, but of course there
 	is no need to do so.
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-16.
+16. To get the idea of various combination of flags under open call, we can look fopen man page as well.
