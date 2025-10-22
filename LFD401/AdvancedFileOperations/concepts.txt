@@ -1,0 +1,71 @@
+1. some functions like stat, fstat and lstat are used to gather info about specified files.
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+2. lstat is identical to stat except only the link is looked, fstat is similar to stat except it uses the file descriptor fd.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+3. st_mtime field gives the time when the file's contents were last modified.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+4. st_ctime field gives the time the inode information was changed, such as the owner , group and mode etc.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+5. stating the file does not change the stored access time.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++  
+6. dirent structure varies a lot among different Unix implementations, better to rely only on d_name only.
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+7. some functions related to directories are opendir, closedir, readdir, rewinddir, mkdir, chdir, getcwd etc .
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+8. inotify provides an easy way to monitor changes in files and dirs, it is a kernel sub-system that issues notifications.
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+9. with inotify , interested programs can take note when a file or directory is created or removed, read or written, has its 
+attributes changed etc without having to resort to actually interogatting directories and files through some kind of polling mechanism.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+10. inotify_init, inotify_add_watch and inotify_rm_watch are specific to linux , mechanism itself.
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+11. with the use of map function, regions of a file may be mapped directly to memory, access may be done through memory 
+	references rather than read/write I/O functions, if permissions are appropriate more than one process may share the
+	mapping simultaneously.
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+12. mmap and munmap functions are present, mmap function maps length bytes starting at offset bytes from the beginning of
+file referred to by fd(the offset must be an integral no of pages).
+
+	protection must agree with the access flags used when the file was opened.
+	A private mapping does not change the file on disk and whatever changes are made will be lost when the process 
+	terminates.
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+13. munmap releases the mapping and causes further references to the mapped addresses to fail.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+14. To see how the given process is using memory mapping , we can do cat /proc/pid/maps , also pmap -d pid to make it more 
+readable
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+15. flock() and fcntl() can be used to apply locking mechanism to an file or just a region of it.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+16. To examine all current file locks on your system you can examine /proc/locks. noting the first no printed is the process id.
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+17. Often we need to generate a temp file to be used by an app. it is very important that the name of this file be unique 
+so that collisions do not occur.
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+18. some of the functions which differ by how they are with regard to race conditions, how they take security etc.
+	mkstemp
+	mkdtemp
+	tmpfile
+some of the obsolete functions you can find them in legacy code are mktemp, tempnam, tmpnam etc -- we should not use them and it is better to replace them in legacy code.
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+19. The tmpfs filesystem(mounted on /dev/shm) provides an easy way to generate temp files that leave no record on the permanent
+	file system.
+	this fs exists purely in memory(it is a ramdisk) and creating temp files in this location can lead to significant
+	performance boosts, since no actual disk operations are required. no special permissions are needed to create, use and
+	remove files under /dev/shm and they can be easily removed after use and disppear automatically on reboot.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+	command parameter controls what the ioctl will do and has to be known to the hardware or software device which has already
+	been opened and is connected to file descriptor fd.
+21. dup and dup2 functions duplicate file descriptors and they share the locks, pointers and flags.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+22. dup uses the lowest-numbered unused descriptor for the new descriptor , while dup2 makes newfd be the copy of oldfd, 
+	closing newfd first if necessary.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+23. link, symlink , readlink and unlink deal with symbolic links and with deleting files.
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+24. chmod and chown functions change the ownership and permission of filesystem entries.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+25. fchmod, fchown differ only in that a file descriptor is used instead of a path name. lchown differs only in that it does not
+	follow symbolic links.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 
