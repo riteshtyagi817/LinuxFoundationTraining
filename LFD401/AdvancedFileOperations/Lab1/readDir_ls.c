@@ -14,10 +14,11 @@ void printAdditionalInfo(const char *fName){
 	memset(&info, '\0', sizeof(info));
 	if(stat(fName, &info) < 0)
 		ErrMsg("stat")
-	printf("%8o  ",info.st_mode);
-	printf("%4d  ",info.st_uid);
-	printf("%4d  ",info.st_gid);
-	printf("%12ld\n",info.st_size);
+	printf("%8o	",info.st_mode);
+	printf("%4d	",info.st_uid);
+	printf("%4d	",info.st_gid);
+	printf("%16ld: ",info.st_size);
+	printf("%s\n",fName);
 	return;
 
 
@@ -35,9 +36,9 @@ int main(int argc, char *argv[]){
 	struct dirent *entry = NULL;
 	int ret = 0;
 	printf("++++++++++++++++ Displaying info ++++++++++++++++++++\n\n");
+	printf("\n\n  Mode		UID	GID		    SIZE\n\n"); 
 	while((entry = readdir(dirPtr))){
-		printf("Inode: %2ld, offset: %2lu, Length of this d_name: %2u , name of this entry: %s\n",entry->d_ino,
-				entry->d_off, entry->d_reclen, entry->d_name);
+		printAdditionalInfo(entry->d_name);
 		ret = write(STDOUT_FILENO,"\n\n",2);
 		if(ret < 0)
 			ErrMsg("write")
