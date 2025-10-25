@@ -1,0 +1,7 @@
+It should be visible in a file
+e.
+rking of mmap to access a file.
+this function call avoids conventional system calls like read and write .
+this function has multiple options to provide and I am feeling good by learning this system call.
+Let see how this thing work in real then only we can use in production systems.
+Also I think I like system programming very much.
