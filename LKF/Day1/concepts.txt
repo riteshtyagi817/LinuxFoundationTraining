@@ -1,3 +1,0 @@
-1. https://elixir.bootlin.com/linux/v6.17.1/source -- To browse the kernel code through Browser.
-+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-2. readelf -a test   -- To read the ELF format binary.

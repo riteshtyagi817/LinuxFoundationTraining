@@ -1,0 +1,29 @@
+1. https://elixir.bootlin.com/linux/v6.17.1/source -- To browse the kernel code through Browser.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+2. readelf -a test   -- To read the ELF format binary.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+3. arm-linux-gnueabihf-gcc -o test test.c -- To generate the executable for arm architecture.
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+4. cat /proc/3289/maps -- to see the run time mapping of working pgm where 3289 is the pid.
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+5. /lib64/ld-linux-x86-64.so.2 --help -- to see the help section of loader(dynamic linker loader)
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+6. /lib64/ld-linux-x86-64.so.2  --list ./test -- we can run executable as well.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+7. using extern "C" in c++ avoids name mangling.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+8. gcc -S -o test.s test.c
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+9. g++ -S -o test.s test.c -- we will see the function name changed to support function overloading until we use extern "C" macro.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+10. c++filt _Z4funci  -- to see actual function name 
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+11. g++ -v -o test test.c -- to see the detailed info during compilation
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+12. gcc -save-temps -o test test.c -- to save all the intermediate  outputs.
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+13. /lib/x86_64-linux-gnu/ldscripts  -- location of linker scripts used by our system.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+14. vim elf32_x86_64.x -- to see one linker script
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+15. objdump -DS test > test.obj -- to see information about object files or executables
