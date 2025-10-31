@@ -71,4 +71,6 @@ some of the obsolete functions you can find them in legacy code are mktemp, temp
 26. basically we can write bytes using memcpy to the mmap designated area and read/write will happen through this designated area 
 	only and it will overwrite the previous content.
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-27. mmap need file_size > 0 to work properly. 
+27. mmap need file_size > 0 to work properly.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+28. if you need to process sym links, use lstat instead of stat, also you can use functions like readlink. 
