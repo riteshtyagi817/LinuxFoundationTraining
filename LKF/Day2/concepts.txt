@@ -27,3 +27,9 @@
 14. vim elf32_x86_64.x -- to see one linker script
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 15. objdump -DS test > test.obj -- to see information about object files or executables
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+16. -std=c++14 can be used explicitly to use the specific C++ standard.
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+17. gcc -static -o test test.c -Wl,--verbose -- to show the linker script used and steps involved.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+18. ld --verbose -- to show default linker script

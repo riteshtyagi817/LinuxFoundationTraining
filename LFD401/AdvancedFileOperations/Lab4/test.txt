@@ -1,0 +1,4 @@
+I am trying to write something into this file.
+just to see the functionality of lock
+and to see if it works fine.
+

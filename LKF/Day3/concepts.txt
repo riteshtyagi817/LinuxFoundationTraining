@@ -1,0 +1,8 @@
+1. gcc -E -o test.i test.c -- to generate output file after preprocessing only.
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+2. gcc -O0 -S -o test.s test.c -- to generate assembly output after compilation ,O0 will restrict any optimization.
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+3. man gcc -- to see the optimization options details.
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+4. gcc -O2 -Q --help=optimizers -- to see what is enabled for flags like O2 etc.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
