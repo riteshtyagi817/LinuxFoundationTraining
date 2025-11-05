@@ -73,4 +73,9 @@ some of the obsolete functions you can find them in legacy code are mktemp, temp
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 27. mmap need file_size > 0 to work properly.
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-28. if you need to process sym links, use lstat instead of stat, also you can use functions like readlink. 
+28. if you need to process sym links, use lstat instead of stat, also you can use functions like readlink.
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+29. while using mkstemp to create temp files, currently files are getting created in current dir rather than /tmp.
+	P_tmpdir is defined in stdio.h not in stdlib.h
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 

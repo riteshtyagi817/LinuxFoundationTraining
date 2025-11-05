@@ -58,11 +58,4 @@ int main(int argc, char *argv[]){
 	printf("Sleeping for 10 seconds\n");
 	sleep(10);
 	exit(EXIT_SUCCESS);
-
-
-
-
-
-
-	exit(EXIT_SUCCESS);
 }
