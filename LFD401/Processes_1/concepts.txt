@@ -1,0 +1,48 @@
+1. Processes are controlled by scheduling which is completetely preemptive and processes and can have different states, running and sleeping most common. Only the kernel has the right to preempt a process, they cannot do it to each other.
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+2. init is usually the first process rn on a system and becomes the ancestor of all subsequent processes running onn the system,
+except for those initiated directly from the kernel(which show up with [] around their name in ps listing).
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+3. Every process has pid, ppid and pgid. also it has code, date, variables, file descriptors and environment.
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+4. A child process which terminates (either normally or abnormally) before its parent. which has not waited for it and examined
+to check its exit code is known as Zombie(or defunct) process. Zombies have released almost all the resources and remain only to 
+convey their exit status. one function of the init process is to check on its adopted children and let those who have terminated
+die gracefully. hence it is sometimes known as zombie killer or child reaper.
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+5. getpid, getppid, and getpgid() are some functions used.
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+6. largest pid has been limited to 32768, we can alter this value by changing /proc/sys/kernel/pid_max, as processes are created
+	eventually they will reach pid_max, at which point they will start again at pid = 300.
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+7. threads(LWP) of a process shares the same pid but has a unique thread identifier.
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+8. Per process usage or resource, limits are described by an array of rlimit structures.
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+9. only the superuser can change rlim_cur to a value greater than rlim_max or change the rlim_max field.
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+10. for x86 ,resource limits are defined in include/linux/resources.h.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+11. getrlimit or setrlimit can be used from the user space to get and set usage limits and report on current usage totals.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+12. ulimit -a can be used from the bash to see the values, pipe size(ulimit -p) cannot be changed and not the part of the RLIMIT
+	set.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+13.  we can examine /proc/[pid]/limits to read the values set for a particular process ID.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+14. values for users , groups as well as system defaults can be set by editing the file /etc/security/limits.conf.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++  
+15. It is important to note that the child processes inherits the rlim field of the parent task structure and thus begin with 
+	the same limits.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+16.  getrusage() can also be used obtain detailed info about current usage totals, not all the fields are properly maintained in
+	Linux , need to check man page to get that info.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+17. every process is also a member of a process group, processes can join or leave the process groups.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+18. A process group has a leader which pid = pgid , group continues even if the group leader terminates and end only when all
+	of the members terminate.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+19. setpgid(), getpgid() , setgrp() and getpgrp() are used to manipulate process groups.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+20. setpgrp() is equivalent to setpgid(0,0) and getpgrp() is equivalent to getpgid(0). 
