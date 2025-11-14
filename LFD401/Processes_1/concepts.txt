@@ -45,4 +45,70 @@ die gracefully. hence it is sometimes known as zombie killer or child reaper.
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 19. setpgid(), getpgid() , setgrp() and getpgrp() are used to manipulate process groups.
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-20. setpgrp() is equivalent to setpgid(0,0) and getpgrp() is equivalent to getpgid(0). 
+20. setpgrp() is equivalent to setpgid(0,0) and getpgrp() is equivalent to getpgid(0).
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+21. proc filesystem is a peudo filesytem which exists only in memory, /proc is empty when the system is not running.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+22. Information in /proc is generated only when examined , it is not continously updated.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+23. Entries in /proc can be used to obtain system information when read. Writing to entries can set various system parameters.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+24. Name proc is short for process so /proc contains lot of info about processes running on the system, in addition to global info.
+	for each process on the system there is subdir named with the process id.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+25. Some of these entries are very useful in /proc. map entry shows the memory mappings associated with the process, smaps shows 
+	details on each segment, sched gives scheduling info, and the fd subdir gives info about all open file descriptors.
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+26. man proc can give info about many of the entriesm both the process oriented and the global ones. one should be forewarned 
+	that the exact contents of the proc filesystem tend to vary with the kernel version as new info is added and deprecated entries are removed, will need to explore myself.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+27. IPC techniques:
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+28. Signals:
+	signals can be used to send short messages between any two processes , regardless of their relationship, as long as privileges are appropriate, one of the oldest methods of ipc.
+	Normally only a signal number is delivered, but with the siginfo interface, more info including the identity of the sending process can be supplied.
+	Upon receiving a signal, a process suspends its normal operation. invokes a handling routine and then returns to where it was executing before handling the signal(or jumps to an alternative location) or exits.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+29. Pipes:
+	Pipes created by the popen() and pipe() function, create a data flow between two processes which may or may not have an 
+	ancestral relationship.
+	Date flow proceeds only when both reader and a writer are present.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+30. Named Pipes(FIFOS):
+	fifos create a data flow between two processes which may or may not have an ancestral relationship.
+	A filesystem entry is setup and flow through the pipe is accomplished through normal I/O calls through the fifo.
+	Data flow proceeds only when both a reader and a writer are present. there can be more than one reader and more than one
+	writer.( FIFO stands for First In, First Out).
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+31. Unix Domain Sockets:
+	Unix Domain Sockets create a data flow between two processes which may or may not have an ancestral relationship.
+	A filesystem entry is setup and flow through the socket is accomplished by opening up socket descriptors and reading and 
+	writing through them.
+Unlike FIFOs communication is truly multiplex and bidirectional. there can be more than one reader and more than one writer.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+32. Internet Sockets:
+	Internet sockets create a data flow between two processes which may be on different machines. there is no filesystem entry
+	associated with them.
+	Flow through the socket is accomplished by opening up socket descriptors and reading and writing through them, just as
+	with UNIX Domain sockets.
+	Once again communication is truly multiplex and bidirectional.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+33. system V IPC:
+	System V IPC consist of three methods: shared memory, semaphores and message queues.
+	Any processes which have access to the appropriate identifer can use these methods whether or not there is an ancestral 
+	relationship.
+	these methods are prone to leaks and have an interface which shows its age. they are used abundantly in legacy code, but
+	can be avoided in new programs.
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+34. POSIX IPC:
+	Posix IPc consists of the same three methods as System V IPC , but has a vastly improved interface and communication.
+	Shared resources show up as special filesystem entries.
+	These methods are not prone to leaks and are a better choice than System V IPC.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+35. Multi-threading:
+	Multi-threading applications have more than one thread of execution . they communicate among each other through shared
+	resources such as memory and file descriptors.
+	Careful coordination is required to preserve the integrity and sequencing of shared resources.
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 		
+ 
