@@ -1,0 +1,47 @@
+1. system system call runs a process from inside another program, calling process will block waiting for system() to complete 
+	its actions.
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+2. system() call is not very efficient but easy to use, for critical tasks, we need to use one of the exec functions.
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+3. system() is terrible with respect to security. even for normal users.
+	Also we should never use system() from within a program with superuser privileges, this can be a wide open security
+	hole because behavior can be influenced by env variables set by the normal user.
+	system should only be used for fast and dirty results and testing. it should never ever be used in production.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+4. creating a new child process without terminating the old one can be done with fork and vfork.
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+5. After a fork() two processes are running, the child inherits the parent resources.
+	only the pid, ppid , file locks and pending signals are not carried along.
+	File descriptors , memory etc are inherited , however Linux used copy-on-write mechanism so memory is not duplicated
+	until it is actually altered.
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+6. fork() returns 0 to child process and child's pid to the parent process.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+7. we need to be careful using fork() in applications that use the standard c library for the file IO operations(with functions 
+such as fopen() because it will duplicate the current processes's virtual memory, including buffers allocated in user space.
+	this means such a buffer could be flushed twice( once in the parent and once in the child). similar issues can arise 
+	with signal handlers, we need to check the manual pages for other details.
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+8. An additional process creation call vfork() creates a child that shares the parent memory address space. However to prevent
+	the parent from stepping on the child's use of the memory, the parent's execution is blocked until the child exits or issues an execve() call. The child cannot write to this address space and thus there is no need to copy page table entries.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+9. vfork() was created in early UNIX implementation which did not have copy-on-write mechanism so it can be dangerous and/or
+	inefficient and should generally be avoided in the new code.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+10. exec family of functions provide other related ways to launch a new process.
+	Functions: execl, execlp, execle, execv, execvp, execve 
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+11. These functions replace the current process with a new one. the new process has the same pid as the creating process.
+	In addition it inherites all open file descriptors(until the file has FD_CLOEXEC flag set , perhaps by fcntl()).
+	they don't return unless an error occurs.
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+12. execve() man page is useful to check for error conditions.
+	Various functions differ in how they represent the program to be executed, hand over arguments and environment variables.
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+13. path is a full pathname, while using file implies the current PATH variable will be used.if file contains a slash it is interpretated as a full path name.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+14. the argument list must be terminated with a NULL pointer, whether it is strung out in a list or the argv array is used.
+	**environ can be played with directly to modify the environment.
+	the first argument has to be the command name, which may seem repetitive.
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+ 
