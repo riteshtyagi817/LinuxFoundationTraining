@@ -1,0 +1,1 @@
+ps -eLF | grep -e PID -e top

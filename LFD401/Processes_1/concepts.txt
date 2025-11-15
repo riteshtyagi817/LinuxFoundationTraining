@@ -110,5 +110,10 @@ Unlike FIFOs communication is truly multiplex and bidirectional. there can be mo
 	resources such as memory and file descriptors.
 	Careful coordination is required to preserve the integrity and sequencing of shared resources.
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
- 		
+36. Be careful while using format specifier in printing, for unsigned long it should %lu not %ld, it can corrupt the results.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+37. It might be possible that you might not change the process group id even if using functions like setpgid may be this is not 
+	allowed.
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+38. ps -eLF is handy command to see the threads as well, NLWP tells no of threads  and using LWP col, we can investigate thread as well by going to /core/pid/task/LWP_ID. 		
  
