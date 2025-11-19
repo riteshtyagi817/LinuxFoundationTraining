@@ -1,2 +1,2 @@
-1. -W switch usage in compiling stages?
-2. Eclipse setup is mandatory? -- currently it is pending from my side.
+1. -W switch usage in compiling stages? -- might be to give options to separate units, like assembler or preprocessor.
+2. Eclipse setup is mandatory? -- currently it is pending from my side. -- downloaded , will use it later.

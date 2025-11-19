@@ -44,4 +44,92 @@ such as fopen() because it will duplicate the current processes's virtual memory
 	**environ can be played with directly to modify the environment.
 	the first argument has to be the command name, which may seem repetitive.
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
- 
+15. some examples of exec  variations:
+
+	const char *ps_argv[] = {"ps","-ax",NULL};
+	const char *ps_envp[] = {"PATH=/bin:/usr/bin","TERM=console", NULL};
+	execl("/bin/ps","ps","-ax",NULL};
+	execlp("ps","ps","-ax",NULL};
+	execle("/bin/ps","ps","-ax",NULL,ps_envp};
+	execv("/bin/ps",ps_argv};
+	execvp("ps",ps_argv);
+	execve("/bin/ps",ps_argv,ps_envp);
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+16. In addition to the traditional fork() call that generates a child that is a full peer to the parent, a heavyweight process,
+	linux permits the creation of lightweight processes that share many kernel data structures(including memory areas) between 	 parents and children, this the basis of multithreaded programming implementation under linux.
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+17. All these methods of process creation invoke the same basic function under linux with different args and flags chosen,
+	From user-space we have system call clone() ,there is a corresponding sys_clone() function in the linux kernel.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+17. All these methods of process creation invoke the same basic function under linux with different args and flags chosen,
+	From user-space we have system call clone() ,there is a corresponding sys_clone() function in the linux kernel.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+18. clone system call related points:
+	fn - points to the function that will be executed by the porcess when it begins, Anything pointed to by arg will be passed
+	to this function.
+	integer return value of the function should contain the exit code for the child process.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+19. The child_stack argument points to the stack used by the child process. If a value of 0 is given, the child gets the same
+	stack pointer as the parent, however as soon as either of them modifies the stack the copy-on-write technique ensures
+	that they get their own copies.
+	However if the child and parent are sharing the same memory area(they are lighweight processes or threads), then this
+	value must be non-null.
+	the parent process must setup the memory for the child stack and pass this pointer.(note that stacks are grown downward
+	so the pointer should point to the topmost address of the child stack in this case).
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+20. The flags argument has more than one purpose, its low byte should contain the number of the signal sent to the parent when 
+	the child dies(eg: SIGCHLD) this is bitwise-or'ed with any combination of the values, in order to control
+	what is shared between parent and child.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+21. The fork() system call has  flags SIGCHLD and vfork() has flags = SIGCHLD | CLONE_VM| CLONE_VFORK.
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+22. To make a thread at a minimum flags = CLONE_VM|CLONE_FS|CLONE_FILES|CLONE_SYSVSEM|CLONE_SIGHAND|CLONE_THREAD
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+23. Functions like _exit, exit , abort results in process termination which may be either normal or abnormal.
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+24. Normal termination can occur in three ways:
+	calling return from main same as calling exit()
+	calling exit() --> All open streams are flushed and closed, all handlers registered with atexit() and on_exit() are called 		in reverse order of registration.
+	calling _exit() ( which is also called by exit() ) --> all open file descriptors are closed, all child processes are 
+	inherited by init and SIGCHLD is sent to the parent process.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+25. Abnormal termination can occur in two ways:
+	An abort() generates SIGABRT and causes a core dump to be generated, all open streams are closed and flushed.
+	if SIGABRT is blocked or ignored , abort() will still terminate and core dump but if the signal is caught it may be avoided	-- Any signal whose default behavior is termination and for which a  non-terminating signal handler is not installed kills
+	the process.
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+26. exit handling functions may be registered with the functions atexit and on_exit, on_exit is similar to atexit except that 
+	the function is passed the argument to exit() and the arg argument. these functions return 0 on success, -1 on failure(errno is not set)
+	these functions are not called in the case of an abnormal termination.
+	it is also possible to use destructor methods as we describe next.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+27. gcc compiler permits the use of special constructor and destructor functions:
+	-- The constructor functions are called before the main(void) routine is called.
+	-- The destructor functions are called after the exit() function is called from main(void), if exit() or return() is not 		explicitly called, the destructor routines will still be called.
+	we already saw the use of these methods in our discussion of libraries , and repeat the example of how they are used.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+28. A parent process can wait(suspend execution) until one of its child processes either dies or is stopped ot a signal
+	interrupts it.
+	wait returns on any child process and waitpid on a particular process or set of processes.
+	status contains the exit status of the process, unless it is set to NULL, interrogation macro can be used. 
+	options flag can be used to modify behavior.
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+29. A daemon process runs in the background, not directly controlled by a user. By convention the names of daemon processes 
+	usually end with the letter d, examples include cupsd, crond, httpd and ksmd.
+	Basic preparation for creating a daemon process is to fork off a child and then terminate the parent, the child is then
+	adopted by the init process with process id = 1.
+	Other steps are as below:
+	-- Closing all open file descriptors and then redirecting stdin, stdout and stderr to /dev/null, there by breaking any 
+	association from the controlling terminal.
+	-- Becoming the session and process group leader.
+	--- Setting the root directory to /. this lets one potentially unmount the file system the process was started from and 
+	also avoids security and other errors that would depend on where the process was started.
+	
+we can do all this by hand but we can use below function :
+	int daemon(int nochdir, int noclose) -- when nochdir is not zero, the root directory is not reset to /.
+	-- if noclose is not zero , standard input,output and error are not redirected to /dev/null.
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+	 
+	
