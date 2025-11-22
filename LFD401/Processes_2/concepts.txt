@@ -131,5 +131,5 @@ we can do all this by hand but we can use below function :
 	int daemon(int nochdir, int noclose) -- when nochdir is not zero, the root directory is not reset to /.
 	-- if noclose is not zero , standard input,output and error are not redirected to /dev/null.
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-	 
+30. It is better to use fflush(stdout) just before fork() call.	 
 	
