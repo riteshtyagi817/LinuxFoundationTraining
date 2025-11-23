@@ -132,4 +132,6 @@ we can do all this by hand but we can use below function :
 	-- if noclose is not zero , standard input,output and error are not redirected to /dev/null.
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 30. It is better to use fflush(stdout) just before fork() call.	 
-	
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+31. if you need to define _GNU_SOURCE as the part of some system call like clone, then define it at the top of the file.
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 	
