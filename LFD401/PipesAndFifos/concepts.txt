@@ -1,0 +1,32 @@
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+1. Pipes permit processes to exchange streams of data, not just short signals. These processes may either be independent or have
+	a parent-child relationship.
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+2. A process may also use a pipe to receive input from or direct output to a command.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+3. using std io , we can use functions like popen and pclose to open and close a pipe.
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+4. popen() initiates a process by creating a pipe, forking and invoking the shell , using the system() call so it has the 
+	same considerations as system().
+	the mode argument is the same as that used in fopen(). however it can take only r or w,the pipe is not bidirectional.
+	it can only be open solely for reading or solely for writing.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+5. popen returns a normal I/O stream except it must be closed with pclose() and not fclose().
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+6. pclose waits for the associated process to terminate and returns the exit status of the command.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+7. The lower level pipe() creates pipe which can be used to pass data between two processes, without the overhead of invoking 
+	a shell and gives more control.
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+8. using pipe() , a parent and child may be connected or a process may even connect to itself.
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+9. The pipe has a read end and a write end; filedes[1] is for data write, filedes[0]  is for data read, data is processed in
+	a first-in , first-out(FIFO) basis.
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+10. we are using file desc after pipe so read and write will work not fread , fwrite.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+11. How pipes work differ from one UNIX variant to another.In system V , the pipes are full-duplex; both descriptors can have 
+	reads and writes. in the POSIX std , each process must close one end of the pipe before using the other.
+	under Linux, while the communication in each pipe is only one way. no close operation is required. keep these 
+	considerations in mind for writing portable code.
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
