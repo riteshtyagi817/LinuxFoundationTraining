@@ -29,4 +29,192 @@
 	reads and writes. in the POSIX std , each process must close one end of the pipe before using the other.
 	under Linux, while the communication in each pipe is only one way. no close operation is required. keep these 
 	considerations in mind for writing portable code.
-++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+12. Named pipes ( or FIFO's) allow to create a pipe between two processes which may or may not common ancestor.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+13. You can create a named pipe and wait for another process to establish a communication link with it.Unlike pipes, named pipes
+	create an entry in the filesystem that can then be accessed by another process.
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+14. No data transfer can take place until both a reader and writer are present.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+15. A FIFO can be created either from the command line or by using a system call. 
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+12. Named pipes ( or FIFO's) allow to create a pipe between two processes which may or may not common ancestor.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+13. You can create a named pipe and wait for another process to establish a communication link with it.Unlike pipes, named pipes
+	create an entry in the filesystem that can then be accessed by another process.
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+14. No data transfer can take place until both a reader and writer are present.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+15. A FIFO can be created either from the command line or by using a system call. 
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+12. Named pipes ( or FIFO's) allow to create a pipe between two processes which may or may not common ancestor.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+13. You can create a named pipe and wait for another process to establish a communication link with it.Unlike pipes, named pipes
+	create an entry in the filesystem that can then be accessed by another process.
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+14. No data transfer can take place until both a reader and writer are present.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+15. A FIFO can be created either from the command line or by using a system call. 
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+12. Named pipes ( or FIFO's) allow to create a pipe between two processes which may or may not common ancestor.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+13. You can create a named pipe and wait for another process to establish a communication link with it.Unlike pipes, named pipes
+	create an entry in the filesystem that can then be accessed by another process.
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+14. No data transfer can take place until both a reader and writer are present.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+15. A FIFO can be created either from the command line or by using a system call. 
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+12. Named pipes ( or FIFO's) allow to create a pipe between two processes which may or may not common ancestor.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+13. You can create a named pipe and wait for another process to establish a communication link with it.Unlike pipes, named pipes
+	create an entry in the filesystem that can then be accessed by another process.
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+14. No data transfer can take place until both a reader and writer are present.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+15. A FIFO can be created either from the command line or by using a system call. 
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+12. Named pipes ( or FIFO's) allow to create a pipe between two processes which may or may not common ancestor.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+13. You can create a named pipe and wait for another process to establish a communication link with it.Unlike pipes, named pipes
+	create an entry in the filesystem that can then be accessed by another process.
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+14. No data transfer can take place until both a reader and writer are present.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+15. A FIFO can be created either from the command line or by using a system call. 
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+12. Named pipes ( or FIFO's) allow to create a pipe between two processes which may or may not common ancestor.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+13. You can create a named pipe and wait for another process to establish a communication link with it.Unlike pipes, named pipes
+	create an entry in the filesystem that can then be accessed by another process.
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+14. No data transfer can take place until both a reader and writer are present.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+15. A FIFO can be created either from the command line or by using a system call. 
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+12. Named pipes ( or FIFO's) allow to create a pipe between two processes which may or may not common ancestor.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+13. You can create a named pipe and wait for another process to establish a communication link with it.Unlike pipes, named pipes
+	create an entry in the filesystem that can then be accessed by another process.
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+14. No data transfer can take place until both a reader and writer are present.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+15. A FIFO can be created either from the command line or by using a system call. 
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+12. Named pipes ( or FIFO's) allow to create a pipe between two processes which may or may not common ancestor.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+13. You can create a named pipe and wait for another process to establish a communication link with it.Unlike pipes, named pipes
+	create an entry in the filesystem that can then be accessed by another process.
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+14. No data transfer can take place until both a reader and writer are present.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+15. A FIFO can be created either from the command line or by using a system call. 
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+12. Named pipes ( or FIFO's) allow to create a pipe between two processes which may or may not common ancestor.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+13. You can create a named pipe and wait for another process to establish a communication link with it.Unlike pipes, named pipes
+	create an entry in the filesystem that can then be accessed by another process.
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+14. No data transfer can take place until both a reader and writer are present.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+15. A FIFO can be created either from the command line or by using a system call. 
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+12. Named pipes ( or FIFO's) allow to create a pipe between two processes which may or may not common ancestor.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+13. You can create a named pipe and wait for another process to establish a communication link with it.Unlike pipes, named pipes
+	create an entry in the filesystem that can then be accessed by another process.
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+14. No data transfer can take place until both a reader and writer are present.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+15. A FIFO can be created either from the command line or by using a system call. 
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+12. Named pipes ( or FIFO's) allow to create a pipe between two processes which may or may not common ancestor.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+13. You can create a named pipe and wait for another process to establish a communication link with it.Unlike pipes, named pipes
+	create an entry in the filesystem that can then be accessed by another process.
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+14. No data transfer can take place until both a reader and writer are present.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+15. A FIFO can be created either from the command line or by using a system call. 
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+12. Named pipes ( or FIFO's) allow to create a pipe between two processes which may or may not common ancestor.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+13. You can create a named pipe and wait for another process to establish a communication link with it.Unlike pipes, named pipes
+	create an entry in the filesystem that can then be accessed by another process.
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+14. No data transfer can take place until both a reader and writer are present.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+15. A FIFO can be created either from the command line or by using a system call. 
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+12. Named pipes ( or FIFO's) allow to create a pipe between two processes which may or may not common ancestor.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+13. You can create a named pipe and wait for another process to establish a communication link with it.Unlike pipes, named pipes
+	create an entry in the filesystem that can then be accessed by another process.
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+14. No data transfer can take place until both a reader and writer are present.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+15. A FIFO can be created either from the command line or by using a system call. 
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+12. Named pipes ( or FIFO's) allow to create a pipe between two processes which may or may not common ancestor.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+13. You can create a named pipe and wait for another process to establish a communication link with it.Unlike pipes, named pipes
+	create an entry in the filesystem that can then be accessed by another process.
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+14. No data transfer can take place until both a reader and writer are present.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+15. A FIFO can be created either from the command line or by using a system call. 
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+12. Named pipes ( or FIFO's) allow to create a pipe between two processes which may or may not common ancestor.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+13. You can create a named pipe and wait for another process to establish a communication link with it.Unlike pipes, named pipes
+	create an entry in the filesystem that can then be accessed by another process.
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+14. No data transfer can take place until both a reader and writer are present.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+15. A FIFO can be created either from the command line or by using a system call. 
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+12. Named pipes ( or FIFO's) allow to create a pipe between two processes which may or may not common ancestor.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+13. You can create a named pipe and wait for another process to establish a communication link with it.Unlike pipes, named pipes
+	create an entry in the filesystem that can then be accessed by another process.
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+14. No data transfer can take place until both a reader and writer are present.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+15. A FIFO can be created either from the command line or by using a system call. 
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+16. From the command line we can use below commands:
+	cd /tmp
+	mkfifo afifo
+	cat < afifo &
+	ls -l > afifo
+we use & without it we could not type the next line since cat blocks waiting for the input.
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+17. As a system call , we can use mkfifo, FIFO may be opened for reading or writing but not for both, in mode O_RDWR is not 
+	allowed , only O_RDONLY and O_WRONLY may be used in combination with O_NONBLOCK.
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+18. A read on a non-blocking FIFO with no data will return 0 bytes; a write on a non-blocking FIFO that cannot accept all of 
+	the bytes being written will either fail, or write only some of the bytes.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+19. The amount of info that can be in the pipe at any one-time is given by the size of a page of memory.(4096 bytes on x86).
+	Another limit PIPE_BUF=4096 gives the limit for an atomic write to the pipe.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+20. A fifo can also be created with mknod either as a command line or system call.
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+21.To create a FIFO entry in the system , node must be comprised of the desired permissions, bitwise OR'ed with S_IFIFO.
+	mknod() is also used to create device special files , we can see its man page.
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+22. when a FIFO is no longer needed, it must be deleted from the cmd line with rm or we must use unlink() from within
+	the code.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+23. UNIX domain sockets , which we will discuss later, offer an alternative to named pipes and have additional capabilities,including bi-directionality , multiplexing  and network communication. however process is somewhat longer.
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++   
+24. There are several useful Linux-specific system calls that involve pipes( and/or normal file descriptors and socket descriptors)
+	1. splice
+	2. tee
+	3. vmsplice
+see the man pages for the details, these system calls are linux specific and cannot be used in portable programs.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+25. While using splice, we will need to provide one fd as the descriptor for the pipe which can be created during run by using 
+	mkfifo, also the program will wait till the program like cat waits for reading(cat < filePipe).
+ 
