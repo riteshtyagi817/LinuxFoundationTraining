@@ -12,7 +12,7 @@ int main(void){
 	int msg_len, sd;
 	char message[MSG_LEN];
 	uaddr.sun_family = AF_UNIX;
-	strcpy(uaddr.sun_path,"tmp/mysock");
+	strcpy(uaddr.sun_path,"/tmp/mysock");
 	
 	sd = socket(PF_UNIX, SOCK_STREAM, 0);
 	connect(sd, (struct sockaddr *)&uaddr, sizeof(uaddr));
